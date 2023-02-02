@@ -1,13 +1,19 @@
 # osview
 
+Open a terminal and
 ```
+docker-compose up
+```
+
+Open other terminal and
+```console
 npm install
 npm run build
 
 npm start or npm install -g .
 ```
 
-```
+```console
 ➜  osview git:(main) ✗ osview
 
   ----------------------------------------

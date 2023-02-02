@@ -1,11 +1,16 @@
+import { Span } from '@opentelemetry/api';
 import os from 'os';
 
-export function processOption(option: string) {
+import ManualTracer from './ManualTracer';
+
+const manualTracer = new ManualTracer();
+
+export function processOption(option: string, parent: Span) {
   switch (option) {
     case 'a':
       return arch();
     case 'c':
-      return cpuInfo();
+      return cpuInfo(parent);
     case 'm':
       return memAvailable();
     case 't':
@@ -15,10 +20,13 @@ export function processOption(option: string) {
   }
 }
 
-function cpuInfo() {
+function cpuInfo(parent:Span) {
   console.log('CPU(s):');
-  return os.cpus()
-    .map(c => `Model: ${c.model} current speed: ${c.speed} MHz`);
+  const span = manualTracer.startSpan(cpuInfo.name, parent);
+  const cpus = os.cpus()
+  .map(c => `Model: ${c.model} current speed: ${c.speed} MHz`);
+  span.end();
+  return cpus;
 }
 
 function memAvailable() {

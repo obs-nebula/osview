@@ -2,6 +2,9 @@
 
 import readline from 'readline';
 import { processOption } from './Os';
+import ManualTracer from './ManualTracer';
+
+const manualTracer = new ManualTracer();
 
 function iWantOut(key:any) {
   return key.ctrl && key.name === 'c' ||
@@ -21,7 +24,9 @@ process.stdin.on('keypress', (_, key) => {
   }
 
   if (options.find(o => key.name === o)) {
-    console.log(processOption(key.name));
+    const parent = manualTracer.startParentSpan('processOption');
+    console.log(processOption(key.name, parent));
+    parent.end();
   } else {
     menu();
   }
