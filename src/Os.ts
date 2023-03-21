@@ -1,46 +1,70 @@
-import { Span } from '@opentelemetry/api';
 import os from 'os';
 
 import ManualTracer from './ManualTracer';
 
 const manualTracer = new ManualTracer();
+const parent = manualTracer.startParentSpan('Function processOption');
 
-export function processOption(option: string, parent: Span) {
+export function processOption(option: string) {
+
+  let result: string | string[] = '';
   switch (option) {
     case 'a':
-      return arch();
+      result = cpuArch();
+      break;
     case 'c':
-      return cpuInfo(parent);
+      result = cpuModelSpeed();
+      break;
     case 'm':
-      return memAvailable();
+      result = memAvailable();
+      break;
     case 't':
-      return totalMem();
+      result = totalMemory();
+      break;
     case 'u':
-      return uptime();  
+      result = uptime();
+      break;
+    default:
+      break;
   }
+
+  parent.end();
+  return result;
 }
 
-function cpuInfo(parent:Span) {
+function cpuModelSpeed(): string[] {
   console.log('CPU(s):');
-  const span = manualTracer.startSpan(cpuInfo.name, parent);
+  const span = manualTracer.startSpan(cpuModelSpeed.name, parent);
   const cpus = os.cpus()
-  .map(c => `Model: ${c.model} current speed: ${c.speed} MHz`);
+    .map(c => `Model: ${c.model} current speed: ${c.speed} MHz`);
   span.end();
   return cpus;
 }
 
-function memAvailable() {
-  return `Available memory: ${Math.round(os.freemem() / Math.pow(2, 20))} MB`;
+function memAvailable(): string {
+  const span = manualTracer.startSpan(memAvailable.name, parent);
+  const memory = `Available memory: ${Math.round(os.freemem() / Math.pow(2, 20))} MB`;
+  span.end();
+  return memory;
 }
 
-function arch() {
-  return `Arch: ${os.arch()} bits`;
+function cpuArch(): string {
+  const span = manualTracer.startSpan(cpuArch.name, parent);
+  const arch = `Arch: ${os.arch()} bits`
+  span.end();
+  return arch;
 }
 
-function totalMem() {
-  return `Total memory: ${Math.round(os.totalmem() / Math.pow(2, 20))} MB`;
+function totalMemory(): string {
+  const span = manualTracer.startSpan(totalMemory.name, parent);
+  const totalMem = `Total memory: ${Math.round(os.totalmem() / Math.pow(2, 20))} MB`
+  span.end();
+  return totalMem;
 }
 
-function uptime() {
-  return `${Math.round(os.uptime() / 60)} minutes up`;
+function uptime(): string {
+  const span = manualTracer.startSpan(uptime.name, parent);
+  const up = `${Math.round(os.uptime() / 60)} minutes up`;
+  span.end();
+  return up;
 }

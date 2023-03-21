@@ -42,3 +42,7 @@ Total memory: 31804 MB
 862 minutes up
 Bye
 ```
+
+![01](img/1.png)
+
+![02](img/2.png)

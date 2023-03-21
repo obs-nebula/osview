@@ -16,7 +16,11 @@ export default class ManualTracer {
     const exporter = new OTLPTraceExporter();
     provider.addSpanProcessor(new SimpleSpanProcessor(exporter));
     provider.register();
-    this.tracer = opentelemetry.trace.getTracer('manual-tracer');
+    // `getTracer` takes the name and version of the application or library acquiring the tracer.
+    // https://github.com/open-telemetry/opentelemetry-js-api/blob/main/docs/tracing.md#acquiring-a-tracer
+    // The value will show up in Jaeger on the tag: `otel.library.name`
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.tracer = opentelemetry.trace.getTracer(process.env.npm_package_name!, process.env.npm_package_version);
   }
 
   public startParentSpan(name:string) : Span {
