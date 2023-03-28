@@ -17,3 +17,14 @@ services:
     ports:
       - "4318:4318"
     depends_on: [jaeger-all-in-one]
+  prometheus:
+    container_name: prometheus
+    hostname: prometheus
+    network_mode: host
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    # ports:
+    #   - 9090:9090

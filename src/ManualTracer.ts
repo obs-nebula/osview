@@ -1,9 +1,8 @@
-import opentelemetry from '@opentelemetry/api';
 import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { BasicTracerProvider, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
-import { Span, Tracer } from "@opentelemetry/api";
+import opentelemetry, { Span, Tracer } from '@opentelemetry/api';
 
 export default class ManualTracer {
   tracer:Tracer;
@@ -14,6 +13,7 @@ export default class ManualTracer {
     
     const provider = new BasicTracerProvider({ resource: resource });
     const exporter = new OTLPTraceExporter();
+
     provider.addSpanProcessor(new SimpleSpanProcessor(exporter));
     provider.register();
     // `getTracer` takes the name and version of the application or library acquiring the tracer.

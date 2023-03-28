@@ -9,6 +9,8 @@
 | @opentelemetry/sdk-trace-base | For manual instrumentation  |
 | @opentelemetry/semantic-conventions | To be used with `resources` to identify the application/service's name |
 | @opentelemetry/api | To get the trace instance and control spans creation |
+| @opentelemetry/exporter-prometheus | To export to prometheus |
+| @opentelemetry/exporter-prometheus | To export to prometheus |
 
 Open a terminal and
 ```
@@ -53,6 +55,14 @@ Total memory: 31804 MB
 Bye
 ```
 
+### Traces
+
 ![01](img/1.png)
 
 ![02](img/2.png)
+
+### Metrics
+
+
+
+![02](img/3.png)
