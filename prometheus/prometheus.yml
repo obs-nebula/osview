@@ -2,6 +2,6 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'opentelemetry'
+  - job_name: 'collector'
     static_configs:
-    - targets: ['localhost:9464']
+      - targets: ['collector:9464']

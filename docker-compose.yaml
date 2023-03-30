@@ -15,16 +15,14 @@ services:
     volumes:
       - './otel-collector-config.yaml:/otel-collector-config.yaml'
     ports:
+      - "4317:4317"
       - "4318:4318"
+      - "9464:9464"
     depends_on: [jaeger-all-in-one]
   prometheus:
     container_name: prometheus
-    hostname: prometheus
-    network_mode: host
-    image: prom/prometheus
+    image: prom/prometheus:latest
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-    # ports:
-    #   - 9090:9090
+    ports:
+      - "9090:9090"

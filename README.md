@@ -10,7 +10,7 @@
 | @opentelemetry/semantic-conventions | To be used with `resources` to identify the application/service's name |
 | @opentelemetry/api | To get the trace instance and control spans creation |
 | @opentelemetry/sdk-metrics | For manual instrumentation |
-| @opentelemetry/exporter-prometheus | To export to prometheus |
+| @opentelemetry/exporter-metrics-otlp-proto | To export the metrics using the OTEL collector |
 
 Open a terminal and
 ```
