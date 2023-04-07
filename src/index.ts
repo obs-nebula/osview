@@ -3,32 +3,31 @@
 import readline from 'readline';
 import { processOption } from './Os';
 
-function iWantOut(key:any) {
-  return key.ctrl && key.name === 'c' ||
-      key.name === 'q' ||
-      key.name === 'escape';
+function iWantOut(key: any) {
+  return (
+    (key.ctrl && key.name === 'c') || key.name === 'q' || key.name === 'escape'
+  );
 }
 
 const options = ['a', 'c', 'm', 't', 'u'];
 
 readline.emitKeypressEvents(process.stdin);
 process.stdin.setRawMode(true);
-process.stdin.on('keypress', (_, key) => {
-  
+process.stdin.on('keypress', function (_, key) {
   if (iWantOut(key)) {
-    console.log('Bye');
-    return process.exit();
+    process.stdout.write('Bye\n');
+    process.exit();
   }
 
   if (options.find(o => key.name === o)) {
-    console.log(processOption(key.name));
+    process.stdout.write(`${processOption(key.name).toString()}\n`);
   } else {
     menu();
   }
 });
 
-function menu () {
-  const menu = `
+function menu() {
+  process.stdout.write(`
   ----------------------------------------
   Please type one option:
   a --> CPU Arch
@@ -37,8 +36,7 @@ function menu () {
   t --> Total memory
   u --> Uptime
   q --> Quit
-  ----------------------------------------`;
-  console.log(menu);
+  ----------------------------------------\n`);
 }
 
 menu();

@@ -3,10 +3,32 @@
     "rootDir": "src",
     "outDir": "dist",
     "strict": true,
-    "target": "es6",
+    "target": "es2017",
     "module": "commonjs",
+    "moduleResolution": "node",
     "sourceMap": true,
     "esModuleInterop": true,
-    "moduleResolution": "node"
-  }
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "declaration": true,
+    "declarationMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "newLine": "LF",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "useUnknownInCatchVariables": false
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ],
 }

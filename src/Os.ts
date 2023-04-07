@@ -29,17 +29,18 @@ export function processOption(option: string) {
       break;
     default:
       break;
-    }
-  
+  }
+
   parent.end();
   return result;
 }
 
 function cpuModelSpeed(): string[] {
-  console.log('CPU(s):');
+  process.stdout.write('CPU(s):\n');
   const span = manualTracer.startSpan(cpuModelSpeed.name, parent);
-  const cpus = os.cpus()
-    .map(c => `Model: ${c.model} current speed: ${c.speed} MHz`);
+  const cpus = os
+    .cpus()
+    .map(c => `Model: ${c.model} current speed: ${c.speed} MHz\n`);
   span.end();
   manualMetrics.incrementCounter(cpuModelSpeed.name);
   return cpus;
@@ -47,7 +48,9 @@ function cpuModelSpeed(): string[] {
 
 function memAvailable(): string {
   const span = manualTracer.startSpan(memAvailable.name, parent);
-  const memory = `Available memory: ${Math.round(os.freemem() / Math.pow(2, 20))} MB`;
+  const memory = `Available memory: ${Math.round(
+    os.freemem() / Math.pow(2, 20)
+  )} MB`;
   span.end();
   manualMetrics.incrementCounter(memAvailable.name);
   return memory;
@@ -55,7 +58,7 @@ function memAvailable(): string {
 
 function cpuArch(): string {
   const span = manualTracer.startSpan(cpuArch.name, parent);
-  const arch = `Arch: ${os.arch()} bits`
+  const arch = `Arch: ${os.arch()} bits`;
   manualMetrics.incrementCounter(cpuArch.name);
   span.end();
   return arch;
@@ -63,7 +66,9 @@ function cpuArch(): string {
 
 function totalMemory(): string {
   const span = manualTracer.startSpan(totalMemory.name, parent);
-  const totalMem = `Total memory: ${Math.round(os.totalmem() / Math.pow(2, 20))} MB`
+  const totalMem = `Total memory: ${Math.round(
+    os.totalmem() / Math.pow(2, 20)
+  )} MB`;
   span.end();
   manualMetrics.incrementCounter(totalMemory.name);
   return totalMem;
