@@ -2,7 +2,7 @@
 
 > OTEL-JS packages in use:
 
-| Package | Why |
+| Package | |
 | ----------- | ----------- |
 | @opentelemetry/exporter-trace-otlp-http | To export to OTEL collector via OTLP/HTTP |
 | @opentelemetry/resources | To be used with `semantic-conventions` to identify the application/service's name |
@@ -12,20 +12,21 @@
 | @opentelemetry/sdk-metrics | For manual instrumentation |
 | @opentelemetry/exporter-metrics-otlp-proto | To export the metrics using the OTEL collector |
 
-Open a terminal and
+Open a terminal and run
+
 ```
 docker-compose up
 ```
 
-Open other terminal and
-```console
+Open other terminal and run
+
+```shell
 npm install
 npm run build
-
-npm start or npm install -g .
+npm start
 ```
 
-```console
+```shell
 ➜  osview git:(main) ✗ osview
 
   ----------------------------------------
@@ -55,14 +56,13 @@ Total memory: 31804 MB
 Bye
 ```
 
-### Traces
+After selecting some options from the menu you can access Jaeger and Prometheus
+to see both traces and metrics.
 
 ![01](img/1.png)
 
 ![02](img/2.png)
 
-### Metrics
+Each menu option was selected 3 times
 
-
-
-![02](img/3.png)
+![03](img/3.png)

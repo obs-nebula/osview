@@ -1,4 +1,6 @@
 import { Counter } from '@opentelemetry/api';
+import { Resource } from '@opentelemetry/resources';
+import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import {
   MeterProvider,
   PeriodicExportingMetricReader,
@@ -8,8 +10,11 @@ import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
 export default class ManualMetrics {
   menuActionCounter: Counter;
   constructor() {
+    const resource = new Resource({
+      [SemanticResourceAttributes.SERVICE_NAME]: process.env.npm_package_name,
+    });
     const metricsExporter = new OTLPMetricExporter();
-    const meterProvider = new MeterProvider();
+    const meterProvider = new MeterProvider({ resource: resource });
     meterProvider.addMetricReader(
       new PeriodicExportingMetricReader({ exporter: metricsExporter })
     );

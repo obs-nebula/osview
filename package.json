@@ -1,7 +1,7 @@
 {
   "name": "osview",
   "version": "1.0.0",
-  "description": "basic example",
+  "description": "Basic example generating traces and metrics from a CLI with OpenTelemetry-JS",
   "main": "./dist/index.js",
   "bin": {
     "osview": "./dist/index.js"
