@@ -10,7 +10,7 @@
     "prestart": "npm run lint",
     "start": "node .",
     "lint": "eslint . --ext .ts",
-    "compile": "tsc --build tsconfig.json",
+    "build": "tsc --build tsconfig.json",
     "clean": "rm -Rf dist"
   },
   "license": "Apache-2.0",
