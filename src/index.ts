@@ -2,6 +2,7 @@
 
 import readline from 'readline';
 import { processOption } from './Os';
+import { log } from 'console';
 
 function iWantOut(key: any) {
   return (
@@ -12,7 +13,9 @@ function iWantOut(key: any) {
 const options = ['a', 'c', 'm', 't', 'u'];
 
 readline.emitKeypressEvents(process.stdin);
-process.stdin.setRawMode(true);
+if (process.stdin.isTTY) {
+  process.stdin.setRawMode(true);
+}
 process.stdin.on('keypress', function (_, key) {
   if (iWantOut(key)) {
     process.stdout.write('Bye\n');
@@ -27,7 +30,7 @@ process.stdin.on('keypress', function (_, key) {
 });
 
 function menu() {
-  process.stdout.write(`
+  log(`
   ----------------------------------------
   Please type one option:
   a --> CPU Arch
@@ -36,7 +39,7 @@ function menu() {
   t --> Total memory
   u --> Uptime
   q --> Quit
-  ----------------------------------------\n`);
+  ----------------------------------------`);
 }
 
 menu();

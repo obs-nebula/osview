@@ -3,6 +3,7 @@ import os from 'os';
 import ManualTracer from './ManualTracer';
 import ManualMetrics from './ManualMetrics';
 import { Span } from '@opentelemetry/api';
+import { log } from 'console';
 
 const manualTracer = new ManualTracer();
 const manualMetrics = new ManualMetrics();
@@ -36,7 +37,7 @@ export function processOption(option: string) {
 }
 
 function cpuModelSpeed(): string[] {
-  process.stdout.write('CPU(s):\n');
+  log('CPU(s):');
   const span = manualTracer.startSpan(cpuModelSpeed.name, parent);
   const cpus = os
     .cpus()
